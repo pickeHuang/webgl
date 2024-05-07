@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            border: 4px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        /** @type {HTMLCanvasElement} */
+        let canvas = document.getElementById("canvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let ctx = canvas.getContext("2d");
+
+
+        function draw(x, y, w, h) {
+            ctx.fillRect(x,y,w,h);
+            // ctx.beginPath();
+            // ctx.fillStyle = "blue";
+            // ctx.moveTo(x, y)
+            // ctx.lineTo(180, 20);
+            // ctx.lineTo(130, 130);
+            // ctx.closePath();
+            // ctx.fill();
+        }
+
+        function random(min, max) {
+            min = Math.ceil(min); // 向上取整，确保是整数
+            max = Math.floor(max); // 向下取整，确保是整数
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        let startX = 0;
+        let startY = 0;
+
+        let arr = [];
+        let len = 100;
+
+        function initCfg() {
+            for (let i = 0; i < len; i++) {
+                arr.push({
+                    x: random(-canvas.width,canvas.width),
+                    y: -random(100,200),
+                    offset: random(20, 100)
+                });
+            }
+        }
+
+
+
+        function drawRect(index) {
+            let indexObject = arr[index];
+            if (indexObject) {
+                draw(indexObject.x, indexObject.y, 20, 20);
+                indexObject.x += indexObject.offset;
+                indexObject.y += indexObject.offset;
+            }
+            if (indexObject.x > canvas.width) {
+                indexObject.x = -20;
+            }
+            if (indexObject.y > canvas.height) {
+                indexObject.y = -20;
+            }
+        }
+
+        function drawMore() {
+            for (let index = 0; index < len; index++) {
+                drawRect(index);
+            }
+        }
+
+        initCfg();
+        setInterval(() => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawMore();
+        }, 20);
+
+    </script>
+
+</body>
+
+</html>
