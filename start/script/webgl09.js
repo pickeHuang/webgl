@@ -6,8 +6,8 @@
 
 import { mat4 } from "../glmatrix/esm/index.js";
 import { hy } from "./shaderDll.js";
-import { vertexShader } from "../shaders/vertexShader.js";
-import { fragmentShader } from "../shaders/fragmentShader.js";
+import { vertexShader } from "../shaders/template/vertexShader.js";
+import { fragmentShader } from "../shaders/template/fragmentShader.js";
 
 
 /**
